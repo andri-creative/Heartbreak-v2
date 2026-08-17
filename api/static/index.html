@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heartbreak AI V2 — Clinical Severity & Recovery Coach</title>
+  <meta name="description" content="AI Diagnostic & Emotional Recovery Platform untuk mengukur tingkat keparahan patah hati dan mendapatkan bimbingan psikologis personal." />
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <!-- Ambient Background Glows -->
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="glow glow-3"></div>
+
+  <!-- Main Container -->
+  <div class="app-container">
+    
+    <!-- Navbar Header -->
+    <header class="navbar">
+      <div class="logo">
+        <span class="logo-icon">❤️‍🩹</span>
+        <div class="logo-text">
+          <h1>Heartbreak AI <span class="badge-v2">V2.0</span></h1>
+          <p>Clinical Demographic Classifier & AI Psychologist Coach</p>
+        </div>
+      </div>
+      <div class="nav-badges">
+        <span class="status-pill online"><i class="fa-solid fa-circle"></i> AI Model Active</span>
+        <a href="/docs" target="_blank" class="nav-btn"><i class="fa-solid fa-code"></i> API Docs</a>
+      </div>
+    </header>
+
+    <!-- Main Layout Grid -->
+    <main class="main-grid">
+      
+      <!-- LEFT COLUMN: INPUT FORM -->
+      <section class="card form-card">
+        <div class="card-header">
+          <div class="header-icon"><i class="fa-solid fa-heart-crack"></i></div>
+          <div>
+            <h2>Diagnosis Patah Hati</h2>
+            <p class="subtitle">Analisis tingkat keparahan & bimbingan pemulihan emosional</p>
+          </div>
+        </div>
+
+        <!-- Quick Presets -->
+        <div class="preset-section">
+          <label class="section-label"><i class="fa-solid fa-wand-magic-sparkles"></i> Contoh Kasus Cepat (Presets):</label>
+          <div class="preset-buttons">
+            <button type="button" class="preset-btn danger" id="preset-akut">
+              <i class="fa-solid fa-fire"></i> Akut (Baru Putus 2 Hari)
+            </button>
+            <button type="button" class="preset-btn warning" id="preset-sedang">
+              <i class="fa-solid fa-water"></i> Transisi (Putus 2 Bulan)
+            </button>
+            <button type="button" class="preset-btn success" id="preset-ringan">
+              <i class="fa-solid fa-seedling"></i> Move On (Putus 2 Tahun)
+            </button>
+          </div>
+        </div>
+
+        <form id="heartbreak-form">
+          
+          <!-- Baris 1: Nama & Umur -->
+          <div class="input-row">
+            <div class="input-group flex-2">
+              <label for="nama">Nama Responden <span class="req">*</span></label>
+              <div class="input-wrapper">
+                <i class="fa-regular fa-user"></i>
+                <input type="text" id="nama" name="nama" placeholder="Contoh: Dimas Anggara" required />
+              </div>
+            </div>
+            <div class="input-group flex-1">
+              <label for="umur">Umur (Tahun) <span class="req">*</span></label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-cake-candles"></i>
+                <input type="number" id="umur" name="umur" min="12" max="90" placeholder="22" required />
+              </div>
+            </div>
+          </div>
+
+          <!-- Baris 2: Jenis Kelamin & Pendidikan Terakhir -->
+          <div class="input-row">
+            <div class="input-group flex-1">
+              <label for="jenis_kelamin">Jenis Kelamin <span class="req">*</span></label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-venus-mars"></i>
+                <select id="jenis_kelamin" name="jenis_kelamin" required>
+                  <option value="Laki-laki" selected>Laki-laki</option>
+                  <option value="Perempuan">Perempuan</option>
+                </select>
+              </div>
+            </div>
+            <div class="input-group flex-1">
+              <label for="pendidikan">Pendidikan Terakhir <span class="req">*</span></label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <select id="pendidikan" name="pendidikan" required>
+                  <option value="S1" selected>S1</option>
+                  <option value="SMA / SMK">SMA / SMK</option>
+                  <option value="Diploma (D3)">Diploma (D3)</option>
+                  <option value="S2 / S3">S2 / S3</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Baris 3: Lama Hubungan -->
+          <div class="input-group">
+            <label for="lama_hubungan_nilai">Lama Hubungan Sebelum Putus <span class="req">*</span></label>
+            <div class="duration-input-row">
+              <div class="input-wrapper flex-2">
+                <i class="fa-regular fa-clock"></i>
+                <input type="number" id="lama_hubungan_nilai" name="lama_hubungan_nilai" step="any" min="0.1" placeholder="Contoh: 3" required />
+              </div>
+              <div class="input-wrapper flex-1">
+                <select id="lama_hubungan_satuan" name="lama_hubungan_satuan">
+                  <option value="tahun" selected>Tahun</option>
+                  <option value="bulan">Bulan</option>
+                  <option value="minggu">Minggu</option>
+                  <option value="hari">Hari</option>
+                </select>
+              </div>
+            </div>
+            <div class="calc-helper" id="helper-hubungan">~ Estimasi: 0 bulan</div>
+          </div>
+
+          <!-- Baris 4: Lama Sejak Putus -->
+          <div class="input-group">
+            <label for="sejak_putus_nilai">Sudah Berapa Lama Sejak Putus? <span class="req">*</span></label>
+            <div class="duration-input-row">
+              <div class="input-wrapper flex-2">
+                <i class="fa-solid fa-calendar-xmark"></i>
+                <input type="number" id="sejak_putus_nilai" name="sejak_putus_nilai" step="any" min="0.01" placeholder="Contoh: 2" required />
+              </div>
+              <div class="input-wrapper flex-1">
+                <select id="sejak_putus_satuan" name="sejak_putus_satuan">
+                  <option value="minggu" selected>Minggu</option>
+                  <option value="hari">Hari</option>
+                  <option value="bulan">Bulan</option>
+                  <option value="tahun">Tahun</option>
+                </select>
+              </div>
+            </div>
+            <div class="calc-helper" id="helper-putus">~ Estimasi: 0 bulan (Rasio: 0.00)</div>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="submit-btn" id="btn-submit">
+            <span class="btn-text"><i class="fa-solid fa-sparkles"></i> Analisis Tingkat Keparahan</span>
+            <span class="spinner" style="display: none;"><i class="fa-solid fa-circle-notch fa-spin"></i> Memproses AI...</span>
+          </button>
+        </form>
+      </section>
+
+      <!-- RIGHT COLUMN: RESULTS & AI COACH -->
+      <section class="card result-card" id="result-container">
+        
+        <!-- Placeholder State before submitting -->
+        <div class="placeholder-state" id="placeholder-view">
+          <div class="placeholder-icon">
+            <i class="fa-solid fa-brain-circuit"></i>
+          </div>
+          <h3>Hasil Diagnosis AI Akan Muncul di Sini</h3>
+          <p>Isi formulir di sebelah kiri dan klik <strong>"Analisis Tingkat Keparahan"</strong> untuk melihat skor distres, klasifikasi 3-Tier, dan konsultasi AI Psychologist.</p>
+          <div class="scale-preview">
+            <div class="scale-item green">🟢 <strong>Ringan</strong> (&lt; 35%)</div>
+            <div class="scale-item yellow">🟡 <strong>Sedang</strong> (35% – 75%)</div>
+            <div class="scale-item red">🔴 <strong>Berat</strong> (&ge; 75%)</div>
+          </div>
+        </div>
+
+        <!-- Dynamic Results View -->
+        <div class="dynamic-results" id="results-view" style="display: none;">
+          
+          <!-- Top Severity Banner -->
+          <div class="severity-banner" id="banner-severity">
+            <div class="banner-badge" id="badge-icon">🔴</div>
+            <div class="banner-info">
+              <span class="banner-sub">HASIL DIAGNOSIS TINGKAT KEPARAHAN</span>
+              <h2 id="result-severity-label">BERAT</h2>
+              <p id="result-status-desc">Keparahan Patah Hati Tinggi / Akut (Distres Emosional Intensif)</p>
+            </div>
+          </div>
+
+          <!-- Metrics Bar & Ratios -->
+          <div class="metrics-grid">
+            <div class="metric-box">
+              <span class="metric-label">Indeks Distres (Keparahan)</span>
+              <div class="metric-value-row">
+                <span class="metric-number text-danger" id="metric-distres">88.5%</span>
+                <span class="metric-sub" id="metric-sub-distres">Tinggi</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-bar danger" id="bar-distres" style="width: 88.5%;"></div>
+              </div>
+            </div>
+
+            <div class="metric-box">
+              <span class="metric-label">Tingkat Kestabilan / Pulih</span>
+              <div class="metric-value-row">
+                <span class="metric-number text-success" id="metric-kestabilan">11.5%</span>
+                <span class="metric-sub">Adaptasi</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-bar success" id="bar-kestabilan" style="width: 11.5%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Duration & Recovery Factor Summary -->
+          <div class="info-card">
+            <div class="info-row">
+              <div class="info-item">
+                <span class="info-title"><i class="fa-regular fa-clock"></i> Hubungan</span>
+                <strong id="info-dur-hubungan">4.0 Tahun (~48 bulan)</strong>
+              </div>
+              <div class="info-item">
+                <span class="info-title"><i class="fa-solid fa-calendar-xmark"></i> Sejak Putus</span>
+                <strong id="info-dur-putus">2.0 Minggu (~0.5 bulan)</strong>
+              </div>
+              <div class="info-item">
+                <span class="info-title"><i class="fa-solid fa-chart-line"></i> Recovery Ratio</span>
+                <strong id="info-recovery-ratio">0.0104 (Akut)</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- AI Psychologist Emotional Insight -->
+          <div class="ai-coach-card">
+            <div class="coach-header">
+              <span class="coach-icon"><i class="fa-solid fa-head-side-heart"></i></span>
+              <div>
+                <h4>AI Psychologist Insight</h4>
+                <p class="coach-sub">Analisis Kognitif & Psiko-edukasi Personal</p>
+              </div>
+            </div>
+
+            <div class="coach-body">
+              <h5 class="coach-headline" id="coach-headline">"Hai Dimas, Luka Ini Sangat Valid..."</h5>
+              <p class="coach-analysis" id="coach-analysis">Berdasarkan analisis AI, perpisahan setelah hubungan lama...</p>
+              
+              <div class="coach-affirmation" id="coach-affirmation-box">
+                <i class="fa-solid fa-quote-left"></i>
+                <p id="coach-affirmation">"Rasa sakit ini adalah bukti bahwa aku pernah mencintai dengan tulus..."</p>
+              </div>
+
+              <div class="alert-box danger" id="coach-warning" style="display: none;">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span id="coach-warning-text">Peringatan klinis...</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Actionable Recovery Checklist -->
+          <div class="checklist-section">
+            <h4 class="section-heading"><i class="fa-solid fa-list-check"></i> Langkah Pemulihan Terarah:</h4>
+            <div class="checklist-items" id="recovery-checklist">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Interactive Curhat / AI Chatbot Trigger -->
+          <div class="interactive-chat-box">
+            <div class="chat-prompt">
+              <i class="fa-regular fa-comment-dots"></i>
+              <div>
+                <h5>Butuh Konsultasi Lebih Lanjut?</h5>
+                <p>Curhatkan apa yang sedang kamu rasakan saat ini ke AI Psychologist.</p>
+              </div>
+            </div>
+            
+            <div class="curhat-form">
+              <textarea id="user-curhat-text" rows="2" placeholder="Ketik curhatmu di sini (misal: 'Saya masih sering kepikiran dia dan susah tidur setiap malam...')..."></textarea>
+              <button type="button" class="btn-curhat" id="btn-send-curhat">
+                <i class="fa-solid fa-paper-plane"></i> Konsultasikan
+              </button>
+            </div>
+
+            <div class="curhat-response" id="curhat-response-box" style="display: none;">
+              <div class="response-header"><i class="fa-solid fa-robot"></i> Tanggapan AI Coach:</div>
+              <p id="curhat-response-text"></p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>© 2026 Heartbreak AI V2 — Empowering Emotional Healing with Calibrated Machine Learning & Cognitive AI.</p>
+    </footer>
+  </div>
+
+  <!-- Custom JS -->
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
