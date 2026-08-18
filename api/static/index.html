@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Heartbreak AI V2 — Clinical Severity & Recovery Coach</title>
-  <meta name="description" content="AI Diagnostic & Emotional Recovery Platform untuk mengukur tingkat keparahan patah hati dan mendapatkan bimbingan psikologis personal." />
+  <title>Heartbreak AI V3 — Clinical Severity & Cognitive Recovery Coach</title>
+  <meta name="description" content="AI Diagnostic & Emotional Recovery Platform V3 untuk mengukur tingkat keparahan patah hati berbasis perkembangan kognitif usia & pendidikan." />
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -31,12 +31,12 @@
       <div class="logo">
         <span class="logo-icon">❤️‍🩹</span>
         <div class="logo-text">
-          <h1>Heartbreak AI <span class="badge-v2">V2.0</span></h1>
-          <p>Clinical Demographic Classifier & AI Psychologist Coach</p>
+          <h1>Heartbreak AI <span class="badge-v2">V3.0</span></h1>
+          <p>Cognitive Demographic Classifier & AI Psychologist Coach</p>
         </div>
       </div>
       <div class="nav-badges">
-        <span class="status-pill online"><i class="fa-solid fa-circle"></i> AI Model Active</span>
+        <span class="status-pill online"><i class="fa-solid fa-circle"></i> AI Model V3 Active</span>
         <a href="/docs" target="_blank" class="nav-btn"><i class="fa-solid fa-code"></i> API Docs</a>
       </div>
     </header>
@@ -49,8 +49,8 @@
         <div class="card-header">
           <div class="header-icon"><i class="fa-solid fa-heart-crack"></i></div>
           <div>
-            <h2>Diagnosis Patah Hati</h2>
-            <p class="subtitle">Analisis tingkat keparahan & bimbingan pemulihan emosional</p>
+            <h2>Diagnosis Patah Hati V3</h2>
+            <p class="subtitle">Analisis tingkat keparahan berbasis rasio relasional & kematangan kognitif</p>
           </div>
         </div>
 
@@ -65,7 +65,7 @@
               <i class="fa-solid fa-water"></i> Transisi (Putus 2 Bulan)
             </button>
             <button type="button" class="preset-btn success" id="preset-ringan">
-              <i class="fa-solid fa-seedling"></i> Move On (Putus 2 Tahun)
+              <i class="fa-solid fa-seedling"></i> Move On (Putus 7 Bulan)
             </button>
           </div>
         </div>
@@ -93,10 +93,10 @@
           <!-- Baris 2: Jenis Kelamin & Pendidikan Terakhir -->
           <div class="input-row">
             <div class="input-group flex-1">
-              <label for="jenis_kelamin">Jenis Kelamin <span class="req">*</span></label>
+              <label for="jenis_kelamin">Jenis Kelamin</label>
               <div class="input-wrapper">
                 <i class="fa-solid fa-venus-mars"></i>
-                <select id="jenis_kelamin" name="jenis_kelamin" required>
+                <select id="jenis_kelamin" name="jenis_kelamin">
                   <option value="Laki-laki" selected>Laki-laki</option>
                   <option value="Perempuan">Perempuan</option>
                 </select>
@@ -109,8 +109,11 @@
                 <select id="pendidikan" name="pendidikan" required>
                   <option value="S1" selected>S1</option>
                   <option value="SMA / SMK">SMA / SMK</option>
+                  <option value="SMA/Sederajat">SMA / Sederajat</option>
                   <option value="Diploma (D3)">Diploma (D3)</option>
+                  <option value="Diploma (D1/D2/D3)">Diploma (D1/D2/D3)</option>
                   <option value="S2 / S3">S2 / S3</option>
+                  <option value="SMP/Sederajat">SMP / Sederajat</option>
                 </select>
               </div>
             </div>
@@ -122,7 +125,7 @@
             <div class="duration-input-row">
               <div class="input-wrapper flex-2">
                 <i class="fa-regular fa-clock"></i>
-                <input type="number" id="lama_hubungan_nilai" name="lama_hubungan_nilai" step="any" min="0.1" placeholder="Contoh: 3" required />
+                <input type="number" id="lama_hubungan_nilai" name="lama_hubungan_nilai" step="any" min="0.1" placeholder="Contoh: 2" required />
               </div>
               <div class="input-wrapper flex-1">
                 <select id="lama_hubungan_satuan" name="lama_hubungan_satuan">
@@ -142,13 +145,13 @@
             <div class="duration-input-row">
               <div class="input-wrapper flex-2">
                 <i class="fa-solid fa-calendar-xmark"></i>
-                <input type="number" id="sejak_putus_nilai" name="sejak_putus_nilai" step="any" min="0.01" placeholder="Contoh: 2" required />
+                <input type="number" id="sejak_putus_nilai" name="sejak_putus_nilai" step="any" min="0.01" placeholder="Contoh: 6" required />
               </div>
               <div class="input-wrapper flex-1">
                 <select id="sejak_putus_satuan" name="sejak_putus_satuan">
-                  <option value="minggu" selected>Minggu</option>
+                  <option value="bulan" selected>Bulan</option>
+                  <option value="minggu">Minggu</option>
                   <option value="hari">Hari</option>
-                  <option value="bulan">Bulan</option>
                   <option value="tahun">Tahun</option>
                 </select>
               </div>
@@ -158,8 +161,8 @@
 
           <!-- Submit Button -->
           <button type="submit" class="submit-btn" id="btn-submit">
-            <span class="btn-text"><i class="fa-solid fa-sparkles"></i> Analisis Tingkat Keparahan</span>
-            <span class="spinner" style="display: none;"><i class="fa-solid fa-circle-notch fa-spin"></i> Memproses AI...</span>
+            <span class="btn-text"><i class="fa-solid fa-sparkles"></i> Analisis Tingkat Keparahan V3</span>
+            <span class="spinner" style="display: none;"><i class="fa-solid fa-circle-notch fa-spin"></i> Memproses AI V3...</span>
           </button>
         </form>
       </section>
@@ -172,12 +175,12 @@
           <div class="placeholder-icon">
             <i class="fa-solid fa-brain-circuit"></i>
           </div>
-          <h3>Hasil Diagnosis AI Akan Muncul di Sini</h3>
-          <p>Isi formulir di sebelah kiri dan klik <strong>"Analisis Tingkat Keparahan"</strong> untuk melihat skor distres, klasifikasi 3-Tier, dan konsultasi AI Psychologist.</p>
+          <h3>Hasil Diagnosis AI V3 Akan Muncul di Sini</h3>
+          <p>Isi formulir di sebelah kiri dan klik <strong>"Analisis Tingkat Keparahan V3"</strong> untuk melihat skor distres, profil kognitif, dan konsultasi AI Psychologist.</p>
           <div class="scale-preview">
             <div class="scale-item green">🟢 <strong>Ringan</strong> (&lt; 35%)</div>
-            <div class="scale-item yellow">🟡 <strong>Sedang</strong> (35% – 75%)</div>
-            <div class="scale-item red">🔴 <strong>Berat</strong> (&ge; 75%)</div>
+            <div class="scale-item yellow">🟡 <strong>Sedang</strong> (35% – 70%)</div>
+            <div class="scale-item red">🔴 <strong>Berat</strong> (&ge; 70%)</div>
           </div>
         </div>
 
@@ -188,7 +191,7 @@
           <div class="severity-banner" id="banner-severity">
             <div class="banner-badge" id="badge-icon">🔴</div>
             <div class="banner-info">
-              <span class="banner-sub">HASIL DIAGNOSIS TINGKAT KEPARAHAN</span>
+              <span class="banner-sub">HASIL DIAGNOSIS TINGKAT KEPARAHAN V3</span>
               <h2 id="result-severity-label">BERAT</h2>
               <p id="result-status-desc">Keparahan Patah Hati Tinggi / Akut (Distres Emosional Intensif)</p>
             </div>
@@ -224,15 +227,15 @@
             <div class="info-row">
               <div class="info-item">
                 <span class="info-title"><i class="fa-regular fa-clock"></i> Hubungan</span>
-                <strong id="info-dur-hubungan">4.0 Tahun (~48 bulan)</strong>
+                <strong id="info-dur-hubungan">2.0 Tahun (~24 bulan)</strong>
               </div>
               <div class="info-item">
                 <span class="info-title"><i class="fa-solid fa-calendar-xmark"></i> Sejak Putus</span>
-                <strong id="info-dur-putus">2.0 Minggu (~0.5 bulan)</strong>
+                <strong id="info-dur-putus">6.0 Bulan</strong>
               </div>
               <div class="info-item">
                 <span class="info-title"><i class="fa-solid fa-chart-line"></i> Recovery Ratio</span>
-                <strong id="info-recovery-ratio">0.0104 (Akut)</strong>
+                <strong id="info-recovery-ratio">0.2500 (Adaptif)</strong>
               </div>
             </div>
           </div>
@@ -242,7 +245,7 @@
             <div class="coach-header">
               <span class="coach-icon"><i class="fa-solid fa-head-side-heart"></i></span>
               <div>
-                <h4>AI Psychologist Insight</h4>
+                <h4>AI Psychologist Insight V3</h4>
                 <p class="coach-sub">Analisis Kognitif & Psiko-edukasi Personal</p>
               </div>
             </div>
@@ -301,7 +304,7 @@
 
     <!-- Footer -->
     <footer class="footer">
-      <p>© 2026 Heartbreak AI V2 — Empowering Emotional Healing with Calibrated Machine Learning & Cognitive AI.</p>
+      <p>© 2026 Heartbreak AI V3 — Empowering Emotional Healing with Proportional Relational & Cognitive AI.</p>
     </footer>
   </div>
 

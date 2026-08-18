@@ -1,6 +1,6 @@
-# 📖 Heartbreak AI V2 — Dokumentasi & Integrasi REST API
+# 📖 Heartbreak AI V3 — Dokumentasi & Integrasi REST API
 
-REST API modern berbasis **FastAPI** untuk melayani inferensi model keparahan patah hati (*Heartbreak Severity Classifier V2*) ke berbagai antarmuka Frontend (React, Vue, Next.js, Flutter, Android/iOS, atau HTML/JS murni).
+REST API modern berbasis **FastAPI** untuk melayani inferensi model keparahan patah hati (*Heartbreak Severity Classifier V3*) dengan Formula Proporsional Relasional, Tahap Perkembangan Kognitif Usia & Pendidikan, serta Konseling AI Psychologist Coach.
 
 ---
 
@@ -13,7 +13,8 @@ pip install -r requirements.txt
 
 ### B. Menjalankan Server
 ```bash
-uvicorn api:app --reload --host 0.0.0.0 --port 8000
+cd api
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 Server akan aktif di: **`http://localhost:8000`**
 Dokumentasi Interaktif (Swagger UI): **`http://localhost:8000/docs`**
@@ -29,9 +30,10 @@ Dokumentasi Interaktif (Swagger UI): **`http://localhost:8000/docs`**
 ```json
 {
   "status": "healthy",
-  "model_loaded": true,
-  "model_version": "2.0.0",
-  "model_architecture": "Soft Voting Ensemble (Calibrated)"
+  "model_ready": true,
+  "version": "3.0.0",
+  "model_architecture": "Soft Voting Ensemble (Calibrated V3)",
+  "timestamp": "2026-08-18 09:30:00"
 }
 ```
 
@@ -46,20 +48,44 @@ Dokumentasi Interaktif (Swagger UI): **`http://localhost:8000/docs`**
 {
   "satuan_durasi_tersedia": ["hari", "minggu", "bulan", "tahun"],
   "jenis_kelamin_options": ["Laki-laki", "Perempuan"],
-  "pendidikan_options": ["SMA / SMK", "Diploma (D3)", "S1", "S2 / S3"],
+  "pendidikan_options": [
+    "SMP/Sederajat",
+    "SMA/Sederajat",
+    "SMA / SMK",
+    "Diploma (D1/D2/D3)",
+    "Diploma (D3)",
+    "S1",
+    "S2",
+    "S2 / S3",
+    "S3"
+  ],
   "siapa_mengakhiri_options": [
     "Saya yang mengakhiri",
     "Pasangan yang mengakhiri",
-    "Keputusan bersama"
+    "Keputusan bersama",
+    "Tidak jelas"
   ],
-  "masih_komunikasi_options": ["Tidak sama sekali", "Jarang", "Kadang-kadang", "Sering"],
-  "frekuensi_medsos_options": ["Tidak pernah", "Jarang", "Kadang-kadang", "Sering"]
+  "masih_komunikasi_options": [
+    "Tidak sama sekali",
+    "Jarang",
+    "Kadang-kadang",
+    "Sering",
+    "Setiap hari"
+  ],
+  "frekuensi_medsos_options": [
+    "Tidak pernah",
+    "Jarang",
+    "Kadang-kadang",
+    "Sekali sehari",
+    "Hampir setiap hari",
+    "Beberapa kali sehari"
+  ]
 }
 ```
 
 ---
 
-### 3️⃣ Prediksi Keparahan Patah Hati (Main Endpoint)
+### 3️⃣ Prediksi Keparahan Patah Hati (Main Endpoint V3)
 * **Method**: `POST`
 * **URL**: `/api/predict`
 * **Header**: `Content-Type: application/json`
@@ -67,51 +93,62 @@ Dokumentasi Interaktif (Swagger UI): **`http://localhost:8000/docs`**
 #### 📥 Request Body (JSON)
 ```json
 {
-  "nama": "Dimas Anggara",
+  "nama": "Rian Pratama",
   "umur": 22,
-  "lama_hubungan_nilai": 4,
-  "lama_hubungan_satuan": "tahun",
-  "sejak_putus_nilai": 2,
-  "sejak_putus_satuan": "minggu",
-  "jenis_kelamin": "Laki-laki",
   "pendidikan": "S1",
+  "lama_hubungan_nilai": 2,
+  "lama_hubungan_satuan": "tahun",
+  "sejak_putus_nilai": 6,
+  "sejak_putus_satuan": "bulan",
+  "jenis_kelamin": "Laki-laki",
   "siapa_mengakhiri": "Pasangan yang mengakhiri",
-  "masih_komunikasi": "Kadang-kadang",
-  "frekuensi_medsos": "Sering"
+  "masih_komunikasi": "Tidak sama sekali",
+  "frekuensi_medsos": "Jarang"
 }
 ```
-
-> [!TIP]
-> **Field Opsional**: `jenis_kelamin`, `pendidikan`, `siapa_mengakhiri`, `masih_komunikasi`, dan `frekuensi_medsos` bisa dikirim sebagai `null` jika pengguna tidak mengisinya. Sistem otomatis menggunakan nilai fallback default.
 
 #### 📤 Response Body (JSON)
 ```json
 {
   "success": true,
-  "message": "Analisis tingkat keparahan patah hati berhasil dilakukan.",
-  "timestamp": "2026-08-17 20:45:00",
+  "message": "Analisis keparahan patah hati dan konsultasi kognitif AI V3 berhasil dilakukan.",
+  "version": "3.0.0",
+  "timestamp": "2026-08-18 09:30:00",
   "data": {
-    "nama": "Dimas Anggara",
+    "nama": "Rian Pratama",
     "umur": 22.0,
-    "kategori_severity": "Berat",
-    "badge": "🔴",
-    "deskripsi_status": "Keparahan Patah Hati Tinggi / Akut (Distres Emosional Intensif)",
-    "probabilitas_ringan": 11.5,
-    "probabilitas_distres": 88.5,
+    "pendidikan": "S1",
+    "kategori_severity": "Ringan",
+    "badge": "🟢",
+    "deskripsi_status": "Keparahan Patah Hati Rendah (Fase Pemulihan Adaptif / Pulih / Move On)",
+    "probabilitas_ringan": 85.0,
+    "probabilitas_distres": 15.0,
     "detail_durasi": {
-      "durasi_hubungan_bulan": 48.0,
-      "durasi_putus_bulan": 0.5,
-      "kategori_lama_hubungan": "3 - 5 tahun",
-      "kategori_sejak_putus": "< 1 bulan",
-      "rasio_pemulihan": 0.0104,
+      "durasi_hubungan_bulan": 24.0,
+      "durasi_putus_bulan": 6.0,
+      "kategori_lama_hubungan": "1 - 3 tahun",
+      "kategori_sejak_putus": "6 - 12 bulan",
+      "rasio_pemulihan": 0.25,
+      "target_ringan_bulan": 4.8,
+      "life_stage_label": "Dewasa Awal / Kuliah-Kerja Baru (Fase Transisi Kemandirian & Quarter-Life)",
       "fallback_opsional_digunakan": false
     },
+    "profil_kognitif": "🧠 Profil Kognitif Usia 22 Tahun (S1)...",
     "rekomendasi_psikologis": [
-      "Prioritas Utama: Sangat dianjurkan berkonsultasi dengan psikolog atau konselor profesional untuk pendampingan reguler.",
-      "Terapkan STRICT NO-CONTACT: Blokir/mute semua akses media sosial mantan untuk memutus siklus distres.",
-      "Jangan menahan beban sendirian; libatkan keluarga atau support system terdekat yang aman dan suportif.",
-      "Jaga kebutuhan fisik esensial: istirahat cukup, hindari isolasi diri berkepanjangan, dan tunda keputusan hidup yang besar."
-    ]
+      "Pertahankan rutinitas positif harian dan aktivitas produktif yang sedang berjalan.",
+      "Fokus pada pengembangan diri, hobi baru, dan pencapaian target masa depan.",
+      "Buka diri secara perlahan untuk memperluas lingkaran sosial yang sehat."
+    ],
+    "ai_psychologist_insight": {
+      "headline_empati": "Langkah Menuju Kestabilan Baru...",
+      "analisis_kondisi": "Dalam 6 bulan masa pemulihan, nalar kognitif Anda telah bekerja efektif...",
+      "langkah_pemulihan_personal": [
+        "Terus fokus pada target karir dan pengembangan skill mandiri.",
+        "Bangun koneksi pertemanan dan ruang sosial yang bermakna."
+      ],
+      "afirmasi_harian": "Setiap hari membawa peluang baru untuk bertumbuh lebih kuat.",
+      "peringatan_psikologis": null
+    }
   }
 }
 ```
@@ -121,7 +158,6 @@ Dokumentasi Interaktif (Swagger UI): **`http://localhost:8000/docs`**
 ## 💻 3. Contoh Integrasi di Frontend (JavaScript / React / Next.js)
 
 ```javascript
-// Contoh fungsi pemanggilan API dari Frontend
 async function checkHeartbreakSeverity(formData) {
   try {
     const response = await fetch("http://localhost:8000/api/predict", {
@@ -132,12 +168,12 @@ async function checkHeartbreakSeverity(formData) {
       body: JSON.stringify({
         nama: formData.nama,
         umur: Number(formData.umur),
+        pendidikan: formData.pendidikan || "S1",
         lama_hubungan_nilai: Number(formData.lamaHubunganNilai),
-        lama_hubungan_satuan: formData.lamaHubunganSatuan, // "hari" | "minggu" | "bulan" | "tahun"
+        lama_hubungan_satuan: formData.lamaHubunganSatuan,
         sejak_putus_nilai: Number(formData.sejakPutusNilai),
         sejak_putus_satuan: formData.sejakPutusSatuan,
         jenis_kelamin: formData.jenisKelamin || null,
-        pendidikan: formData.pendidikan || null,
         siapa_mengakhiri: formData.siapaMengakhiri || null,
         masih_komunikasi: formData.masihKomunikasi || null,
         frekuensi_medsos: formData.frekuensiMedsos || null,
@@ -146,12 +182,10 @@ async function checkHeartbreakSeverity(formData) {
 
     const result = await response.json();
     if (result.success) {
-      console.log("Status Keparahan:", result.data.kategori_severity); // "Ringan" | "Sedang" | "Berat"
+      console.log("Status Severity V3:", result.data.kategori_severity);
       console.log("Skor Distres:", result.data.probabilitas_distres, "%");
-      console.log("Rekomendasi:", result.data.rekomendasi_psikologis);
+      console.log("Target Pulih:", result.data.detail_durasi.target_ringan_bulan, "bulan");
       return result.data;
-    } else {
-      console.error("Gagal menganalisis:", result.detail);
     }
   } catch (error) {
     console.error("Error koneksi API:", error);

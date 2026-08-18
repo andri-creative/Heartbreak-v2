@@ -1,5 +1,5 @@
 """
-Konfigurasi Aplikasi Heartbreak AI V2
+Konfigurasi Aplikasi Heartbreak AI V3
 """
 
 import os
@@ -13,14 +13,14 @@ else:
     load_dotenv(find_dotenv(), override=True)
 
 class Settings(BaseSettings):
-    PROJECT_NAME: str = "❤️‍🩹 Heartbreak AI V2 API"
-    VERSION: str = "2.0.0"
+    PROJECT_NAME: str = "❤️‍🩹 Heartbreak AI V3 API"
+    VERSION: str = "3.0.0"
     API_PREFIX: str = "/api"
     PORT: int = 8000
     HOST: str = "0.0.0.0"
     
-    # Path Model Bundle
-    MODEL_BUNDLE_PATH: str = "heartbreak_demographic_bundle_v2.pkl"
+    # Path Model Bundle V3
+    MODEL_BUNDLE_PATH: str = "heartbreak_demographic_bundle_v3.pkl"
     
     # OpenRouter API Key (OpenAI GPT)
     OPENROUTER_API_KEY: str = os.getenv("OPENROUTER_API_KEY", "")
@@ -28,7 +28,7 @@ class Settings(BaseSettings):
     AI_GATEWAY_API_KEY: str = os.getenv("AI_GATEWAY_API_KEY", "")
     
     # Thresholds Klinis Severity (3-Tier)
-    THRESHOLD_BERAT: float = 75.0
+    THRESHOLD_BERAT: float = 70.0
     THRESHOLD_SEDANG: float = 35.0
 
     model_config = SettingsConfigDict(

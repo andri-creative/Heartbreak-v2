@@ -229,12 +229,20 @@ HEARTBREAK AI ❤️‍🩹
   8. `Seberapa Sering Melihat Media Sosial Mantan?` (Opsional)
 - Target $y$: `Kategori_HSS` (0, 1, 2).
 
-### ⚙️ STEP 14 — Feature Engineering
+### ⚙️ STEP 14 — Feature Engineering (Durasi, Rasio, Life Stage & Kematangan Kognitif)
 - Membuat fitur numerik turunan dari durasi:
-  - `lama_hubungan_bulan` (konversi ordinal ke satuan bulan)
-  - `sejak_putus_bulan` (konversi ordinal ke satuan bulan)
-  - `urgency_ratio` ($\text{sejak\_putus\_bulan} / \text{lama\_hubungan\_bulan}$)
-- Evaluasi pengaruh fitur baru terhadap target klasifikasi.
+  - `durasi_hubungan_bulan` & `durasi_putus_bulan` (konversi ordinal ke satuan bulan)
+  - `recovery_ratio` ($\text{durasi\_putus\_bulan} / \text{durasi\_hubungan\_bulan}$)
+  - `log_recovery_index` (skala non-linear pemulihan)
+  - `umur_mulai_hubungan` ($\text{Umur} - \text{durasi\_hubungan\_tahun}$)
+- **Fitur Kematangan Kognitif & Tahap Perkembangan Usia**:
+  - `life_stage_score`: Segmentasi perkembangan kognitif/sosial (1: Remaja/Sekolah $\le 18$, 2: Dewasa Awal $19-22$, 3: Dewasa Produktif $23-27$, 4: Dewasa Matang $> 27$)
+  - `tingkat_pendidikan_ordinal`: Skor bertingkat kematangan nalar (1: SMP, 2: SMA/SMK, 3: D3, 4: S1, 5: S2/S3)
+  - `emotional_vulnerability_index`: Proporsi masa hidup sadar yang dihabiskan bersama mantan $(\text{durasi\_hubungan\_tahun} / (\text{Umur} - 12))$
+  - `cognitive_resilience_ratio`: Rasio kematangan kognitif terhadap durasi putus
+  - `relational_maturity_index`: Indeks kematangan relasional terhadap panjangnya ikatan hubungan
+  - Indikator segmentasi: `is_usia_sekolah`, `is_dewasa_awal`, `is_dewasa_matang`
+- Evaluasi korelasi Pearson dan signifikansi seluruh fitur baru terhadap target keparahan patah hati.
 
 ### 🔢 STEP 15 — Encoding
 - Menggunakan One-Hot Encoding pada fitur-fitur kategorik.

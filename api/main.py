@@ -1,5 +1,5 @@
 """
-Entry Point Server FastAPI — Heartbreak AI V2
+Entry Point Server FastAPI — Heartbreak AI V3
 Melayani Web UI Frontend Interaktif dan REST API Endpoints.
 """
 
@@ -7,7 +7,6 @@ import os
 import warnings
 from contextlib import asynccontextmanager
 
-# Filter warning sklearn unpickle agar output terminal bersih
 warnings.filterwarnings("ignore", category=UserWarning)
 
 from fastapi import FastAPI
@@ -23,17 +22,16 @@ async def lifespan(app: FastAPI):
     """Lifespan event handler untuk inisialisasi model saat startup."""
     try:
         MLService.load_bundle()
-        # print("✅ ML Service: Model Bundle V2 Berhasil Dimuat & Siap Digunakan!")
     except Exception as e:
-        # print(f"⚠️ Peringatan saat startup: {e}")
         pass
     yield
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
     description=(
-        "Production-ready REST API & Web App untuk Klasifikasi Keparahan Patah Hati (V2) "
-        "menggunakan 8 Fitur Demografis, Kalibrasi Probabilitas, dan AI Emotional Recovery Coach."
+        "Production-ready REST API & Web App untuk Klasifikasi Keparahan Patah Hati (V3) "
+        "menggunakan Formula Relasional Dinamis, Tahap Perkembangan Kognitif Usia & Pendidikan, "
+        "serta AI Emotional Recovery Psychologist Coach."
     ),
     version=settings.VERSION,
     lifespan=lifespan,
@@ -50,14 +48,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Mount Static Files (CSS & JS)
+# Mount Static Files
 STATIC_DIR = os.path.join(os.path.dirname(__file__), "static")
 if os.path.exists(STATIC_DIR):
     app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 # Register API Routers
 app.include_router(health.router, prefix=settings.API_PREFIX)
-app.include_router(health.router)  # Akses langsung /health dan /options
+app.include_router(health.router)
 app.include_router(predict.router, prefix=settings.API_PREFIX)
 
 @app.get("/", tags=["Frontend Web UI"])
@@ -69,11 +67,11 @@ def serve_ui():
     return {
         "app": settings.PROJECT_NAME,
         "version": settings.VERSION,
-        "status": "Online & Ready",
+        "status": "Online & Ready (V3)",
         "docs": "/docs"
     }
 
 if __name__ == "__main__":
     import uvicorn
-    print(f"🚀 Heartbreak AI V2 Web App berjalan di http://localhost:{settings.PORT}")
+    print(f"🚀 Heartbreak AI V3 Web App berjalan di http://localhost:{settings.PORT}")
     uvicorn.run("main:app", host=settings.HOST, port=settings.PORT, reload=True)

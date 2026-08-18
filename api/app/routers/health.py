@@ -1,5 +1,5 @@
 """
-Health Check & Metadata Router
+Health Check & Metadata Router — Heartbreak AI V3
 """
 
 from datetime import datetime
@@ -12,7 +12,7 @@ router = APIRouter(tags=["General & Metadata"])
 
 @router.get("/health")
 def health_check():
-    """Mengecek status kesehatan server dan status kesiapan model AI."""
+    """Mengecek status kesehatan server dan status kesiapan model AI V3."""
     try:
         bundle = MLService.load_bundle()
         meta = bundle.get("metadata", {})
@@ -20,7 +20,7 @@ def health_check():
             "status": "healthy",
             "model_ready": True,
             "version": meta.get("version", settings.VERSION),
-            "model_architecture": meta.get("model_architecture", "Soft Voting Ensemble (Calibrated)"),
+            "model_architecture": meta.get("model_architecture", "Soft Voting Ensemble (Calibrated V3)"),
             "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
     except Exception as err:
@@ -37,8 +37,8 @@ def get_dropdown_options():
     return OptionsResponse(
         satuan_durasi_tersedia=["hari", "minggu", "bulan", "tahun"],
         jenis_kelamin_options=["Laki-laki", "Perempuan"],
-        pendidikan_options=["SMA / SMK", "Diploma (D3)", "S1", "S2 / S3"],
-        siapa_mengakhiri_options=["Saya yang mengakhiri", "Pasangan yang mengakhiri", "Keputusan bersama"],
-        masih_komunikasi_options=["Tidak sama sekali", "Jarang", "Kadang-kadang", "Sering"],
-        frekuensi_medsos_options=["Tidak pernah", "Jarang", "Kadang-kadang", "Sering"]
+        pendidikan_options=["SMP/Sederajat", "SMA/Sederajat", "SMA / SMK", "Diploma (D1/D2/D3)", "Diploma (D3)", "S1", "S2", "S2 / S3", "S3"],
+        siapa_mengakhiri_options=["Saya yang mengakhiri", "Pasangan yang mengakhiri", "Keputusan bersama", "Tidak jelas"],
+        masih_komunikasi_options=["Tidak sama sekali", "Jarang", "Kadang-kadang", "Sering", "Setiap hari"],
+        frekuensi_medsos_options=["Tidak pernah", "Jarang", "Kadang-kadang", "Sekali sehari", "Hampir setiap hari", "Beberapa kali sehari"]
     )
