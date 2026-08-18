@@ -1,0 +1,42 @@
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+api/venv/
+
+# Git
+.git/
+.gitignore
+
+# Jupyter notebooks & raw data
+*.ipynb
+*.xlsx
+*.csv
+.ipynb_checkpoints/
+data/
+
+# Python cache & build
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# IDE configs
+.vscode/
+.idea/
+.agents/
+.gemini/
+
+# Documentation and markdown
+AGENTS.md
+API_DOCUMENTATION.md
+README.md
+walkthrough.md
+implementation_plan.md
