@@ -11,7 +11,7 @@ warnings.filterwarnings("ignore", category=UserWarning)
 
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
+from fastapi.responses import HTMLResponse, FileResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
 from app.routers import health, predict
@@ -22,7 +22,7 @@ async def lifespan(app: FastAPI):
     """Lifespan event handler untuk inisialisasi model saat startup."""
     try:
         MLService.load_bundle()
-    except Exception as e:
+    except Exception:
         pass
     yield
 
@@ -48,8 +48,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Mount Static Files
+# Mount Static Files (Mendukung lokal dan serverless cloud)
 STATIC_DIR = os.path.join(os.path.dirname(__file__), "static")
+if not os.path.exists(STATIC_DIR):
+    STATIC_DIR = os.path.join(os.getcwd(), "api", "static")
+if not os.path.exists(STATIC_DIR):
+    STATIC_DIR = os.path.join(os.getcwd(), "static")
+
 if os.path.exists(STATIC_DIR):
     app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
@@ -57,19 +62,43 @@ if os.path.exists(STATIC_DIR):
 app.include_router(health.router, prefix=settings.API_PREFIX)
 app.include_router(health.router)
 app.include_router(predict.router, prefix=settings.API_PREFIX)
+app.include_router(predict.router)  # Memungkinkan akses langsung /predict
+
+def get_html_content() -> str:
+    """Membaca isi file index.html dengan pencarian multi-path aman."""
+    candidate_paths = [
+        os.path.join(STATIC_DIR, "index.html"),
+        os.path.join(os.path.dirname(__file__), "static", "index.html"),
+        os.path.join(os.getcwd(), "api", "static", "index.html"),
+        os.path.join(os.getcwd(), "static", "index.html"),
+        "api/static/index.html",
+        "static/index.html"
+    ]
+    for p in candidate_paths:
+        if os.path.exists(p):
+            with open(p, "r", encoding="utf-8") as f:
+                return f.read()
+    return f"""
+    <!DOCTYPE html>
+    <html>
+    <head><title>{settings.PROJECT_NAME}</title></head>
+    <body style="font-family:sans-serif;text-align:center;padding:50px;">
+      <h1>❤️‍🩹 Heartbreak AI V3 Online</h1>
+      <p>API Version: {settings.VERSION} | Status: Healthy & Ready</p>
+      <p><a href="/docs">Buka Dokumentasi Swagger API (/docs)</a></p>
+    </body>
+    </html>
+    """
 
 @app.get("/", tags=["Frontend Web UI"])
+@app.get("/api", tags=["Frontend Web UI"])
+@app.get("/api/", tags=["Frontend Web UI"])
+@app.get("/index.py", tags=["Frontend Web UI"])
+@app.get("/api/index.py", tags=["Frontend Web UI"])
 def serve_ui():
-    """Melayani Web UI Frontend Modern di root URL."""
-    index_file = os.path.join(STATIC_DIR, "index.html")
-    if os.path.exists(index_file):
-        return FileResponse(index_file)
-    return {
-        "app": settings.PROJECT_NAME,
-        "version": settings.VERSION,
-        "status": "Online & Ready (V3)",
-        "docs": "/docs"
-    }
+    """Melayani Web UI Frontend Modern di semua alias routing Vercel."""
+    html_content = get_html_content()
+    return HTMLResponse(content=html_content, status_code=200)
 
 if __name__ == "__main__":
     import uvicorn
